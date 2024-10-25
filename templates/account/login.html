@@ -1,0 +1,71 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Sign In" %}{% endblock title%}
+
+
+{% block content %}
+<div class="modal-dialog" role="document" xmlns="http://www.w3.org/1999/html">
+  <div class="modal-content rounded-5 shadow">
+    <div class="modal-header p-5 pb-4 border-bottom-0">
+      <h2 class="fw-bold mb-0">Sign In</h2>
+      <a href="{% url 'board:article_list' %}"><button type="button" class="btn-clos e" data-bs-dismiss="modal"
+          aria-label="Close"></button></a>
+    </div>
+
+    <div class="modal-body p-5 pt-0">
+      <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+
+        <div class="form-floating mb-3">
+          {{ form.login }}
+          {{ form.login.label_tag }}
+          {% if form.login.errors %}
+          <div class="alert alert-danger mt-2" role="alert">
+            {{ form.login.errors }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="form-floating mb-3">
+
+          {{ form.password }}
+          {{ form.password.label_tag }}
+          {% if form.password.errors %}
+          <div class="alert alert-danger mt-2" role="alert">
+            {{ form.password.errors }}
+          </div>
+          {% endif %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-between gap-1">
+
+          <button type="submit" class=" btn btn-lg btn-outline-primary">
+            Submit
+          </button>
+          <a href="{% url 'account_reset_password' %}">
+            Forgot your password?
+          </a>
+        </div>
+
+
+        {% get_providers as socialaccount_providers %}
+        {% if socialaccount_providers %}
+        <hr class="my-4">
+        <h2 class="fs-5 fw-bold mb-3">Other Options:</h2>
+        <a href="{{ signup_url }}">
+          <button type="button" class="w-100 my-1 btn  rounded-4 btn-outline-primary">
+            Sign Up with email
+          </button>
+        </a>
+        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Signup" %}{% endblock title%}
+
+{% block content %}
+<div class="modal-dialog" role="document" xmlns="http://www.w3.org/1999/html">
+  <div class="modal-content rounded-5 shadow">
+    <div class="modal-header p-5 pb-4 border-bottom-0">
+      <h2 class="fw-bold mb-0">{% trans "Sign Up" %}</h2>
+      <a href="{% url 'board:article_list' %}"><button type="button" class="btn-close" data-bs-dismiss="modal"
+          aria-label="Close"></button></a>
+    </div>
+    <div class="ms-5">
+      {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
+    </div>
+
+    <div class="modal-body p-5 pt-0">
+      <hr class="my-4">
+
+      <form class="login" method="POST">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger mt-2" role="alert">
+          {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+        <div class="form-floating mb-3">
+          {{ form.email }}
+          {{ form.email.label_tag }}
+          {% if form.email.errors %}
+          <div class="alert alert-danger mt-2" role="alert">
+            {{ form.email.errors }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="form-floating mb-3">
+          {{ form.username }}
+          {{ form.username.label_tag }}
+          {% if form.username.errors %}
+          <div class="alert alert-danger mt-2" role="alert">
+            {{ form.username.errors }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="form-floating mb-3">
+          {{ form.password1 }}
+          {{ form.password1.label_tag }}
+          {% if form.password1.errors %}
+          <div class="alert alert-danger mt-2" role="alert">
+            {{ form.password1.errors }}
+          </div>
+          {% endif %}
+        </div>
+        <div class="form-floating mb-3">
+          {{ form.password2 }}
+          {{ form.password2.label_tag }}
+          {% if form.password2.errors %}
+          <div class="alert alert-danger mt-2" role="alert">
+            {{ form.password2.errors }}
+          </div>
+          {% endif %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+        </div>
+        <hr class="my-4">
+        <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4 btn btn-outline-primary">
+          Sign Up
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
