@@ -1,0 +1,12 @@
+<form method="POST" class="row g-3">
+  {% csrf_token %}
+
+  <div class="col-12">
+    <h4 class="mb-4 mt-5">Your response:</h4>
+    {{ form.text }}
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Send</button>
+  </div>
+</form>

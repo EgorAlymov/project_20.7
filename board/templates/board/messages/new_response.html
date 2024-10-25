@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+  <h2>You've got a new comment for
+    <a href="https://board.com{% url 'board:post_detail' response.article.pk %}">
+      {{response.article.title}}
+    </a>
+  </h2>
+  <p>To view this response by {{ response.author }}
+    <a href="https://board.com{% url 'board:post_detail' response.article.pk %}">click here</a>
+  </p>
+</body>
+
+</html>

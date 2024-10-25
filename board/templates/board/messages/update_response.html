@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+  <h2>You offer to
+    <a href="https://board.com{% url 'board:article_detail' response.article.pk %}">
+      {{response.article.title}}
+    </a>
+  </h2>
+  <p> has been
+    {% if response.approved %}
+    approved
+    {% else %}
+    rejected
+    {% endif %}
+    by {{ response.article.author }}
+  </p>
+</body>
+
+</html>

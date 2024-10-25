@@ -1,0 +1,31 @@
+{% extends 'board/base.html' %}
+{% load static %}
+
+{% block title %}New Article{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+  <h2 class="py-3">New Article:</h2>
+  <form method="POST" class="row g-3">
+    {% csrf_token %}
+    <div class="col-md-4">
+      {{ form.category.label_tag }}
+      {{ form.category }}
+    </div>
+    <div class="col-8">
+      {{ form.title.label_tag }}
+      {{ form.title }}
+    </div>
+    {{ form.text.label_tag }}
+    {{ form.text }}
+    <div class="col-12">
+      {{ form.media }}
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
+
+{% endblock content %}

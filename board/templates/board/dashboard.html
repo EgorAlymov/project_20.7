@@ -1,0 +1,17 @@
+{% extends 'board/base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+
+  {% for article in article %}
+  <div class="row">
+    {%include "includes/article_layout.html" %}
+  </div>
+  {% endfor %}
+
+</div>
+{% endblock content %}

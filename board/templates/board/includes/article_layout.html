@@ -1,0 +1,71 @@
+<div class="row p-2 my-2 shadow bg-body rounded">
+  <div class="card p-2">
+    <div class="card-header">
+      <h3 class="card-title">
+        <a class="navbar-brand" href="{% url 'board:article_detail' article.pk %}">
+          {{ article.title }}
+        </a>
+      </h3>
+      <a class="navbar-brand" href="{% url 'board:category' article.category.name %}">
+        <span class="badge bg-secondary float-end">{{ article.category }}</span>
+      </a>
+      <small class="text-muted ms-1">
+        <b>
+          published by:
+        </b>
+        <span class="fst-italic">
+        </span>
+        <a href="{% url 'board:by_author' article.author %}">
+          <span class="fst-italic">{{ article.author }}</span>
+        </a>
+        <b>
+          on:
+        </b>
+        <span class="fst-italic">
+          {{ article.dateCreation}}
+        </span>
+        </p>
+
+      </small>
+    </div>
+
+    <div class="card-body">
+      {% if article_list or article %}
+      <p class="card-text ">{{ article.text|safe|truncatewords:25}}</p>
+      {% else %}
+      <p class="card-text ">{{ article.text|safe}}</p>
+      {%endif%}
+
+    </div>
+
+    <div class="card-footer">
+
+      {% if user.is_sign and article in user.article_set.all %}
+      <a class="text-decoration-none" href="{% url 'board:response_list' article.pk %}">
+        <button type="button" class="btn btn-outline-primary position-relative ">
+          Responses
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ article.response_set.all|length }}
+          </span>
+        </button>
+      </a>
+      <a class="text-decoration-none" href="{% url 'board:article_update' article.pk %}">
+        <button class="btn btn-outline-warning text-dark">
+          Edit
+        </button>
+      </a>
+      <a href="{% url 'board:article_delete' article.pk %}">
+        <button class="btn btn-outline-danger">
+          Delete
+        </button>
+      </a>
+      {% else %}
+      <a class="text-decoration-none" href="{% url 'board:response_create' article.pk %}">
+        <button class="btn btn-outline-info">
+          Respond
+        </button>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

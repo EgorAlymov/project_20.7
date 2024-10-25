@@ -1,0 +1,47 @@
+{% extends 'board/base.html' %}
+
+{% block title %}
+Delete Article
+{% endblock title %}
+
+
+
+{% block content %}
+<div class="container">
+
+  <h2>Delete this article?</h2>
+
+  <h4>
+    {{article.title}}
+  </h4>
+  <p>
+    {{ article.text|safe }}
+  </p>
+  <p>
+    <b>
+      published by:
+    </b>
+    <span class="fst-italic">
+    </span>
+    <a href="{% url 'board:by_author' article.author %}">
+      <span class="fst-italic">{{ article.author }}</span>
+    </a>
+    <b>
+      on:
+    </b>
+    <span class="fst-italic">
+      {{ article.dateCreation}}
+    </span>
+  </p>
+  <form method="POST">
+    {% csrf_token %}
+    <a href="{% url 'board:article_delete' article.pk %}">
+      <button class="btn btn-danger">
+        Delete
+      </button>
+    </a>
+  </form>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends 'board/base.html' %}
+
+{% block title %}Board | All Article{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+  {% for article in article_list %}
+  {% include 'includes/article_layout.html'%}
+
+  {% empty %}
+  <div class="text-center">
+    <h3 class="fw-bold">No article yet</h3>
+    <p class="lead ">Start posting!</p>
+    <a href="{% url 'board:article_create' %}">
+      <button type="button" class="btn btn-primary btn-lg px-4 gap-3">
+        Add New Article
+      </button>
+    </a>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}
